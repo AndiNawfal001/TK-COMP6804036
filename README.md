@@ -2,6 +2,7 @@
 - cd folder
 - composer u
 - copy .env.example .env
+- php artisan key:generate
 - rename db
 - php artisan migrate
 - php artisan migrate:fresh --seed
