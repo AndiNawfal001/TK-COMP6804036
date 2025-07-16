@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SelectVacanciesController;
 use App\Http\Controllers\StaffRequestController;
 use App\Http\Controllers\VacancyController;
 use App\Models\Applicant;
@@ -13,6 +15,10 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/login', [AuthController::class, 'authenticate']);
+
+
+    Route::get('/signup', [RegisterController::class, 'register'])->name('register');
+    Route::post('/signup', [RegisterController::class, 'store']);
 });
 
 Route::middleware('auth')->group(function () {
@@ -40,4 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::get('vacancies_approve/{id}', [VacancyController::class, 'approve'])->name('vacancies_approve');
     Route::post('vacancies_update_appr/{id}', [VacancyController::class, 'updateAppr'])->name('vacancies_update_appr');
     Route::delete('vacancies_destroy/{id}', [VacancyController::class, 'destroy'])->name('vacancies_destroy');
+
+    Route::resource('select_vacancies', SelectVacanciesController::class);
+    Route::get('select_vacancies_detail/{id}', [SelectVacanciesController::class, 'detail'])->name('select_vacancies_detail');
 });

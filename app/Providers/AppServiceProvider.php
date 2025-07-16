@@ -23,8 +23,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Model::preventLazyLoading();
-        Gate::define('admin-cuy', function (User $user) {
+        Gate::define('admin', function (User $user) {
             return $user->group_id == 1;
+        });
+
+        Gate::define('applicant', function (User $user) {
+            return $user->group_id == 4;
         });
 
     }

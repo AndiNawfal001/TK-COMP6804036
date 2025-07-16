@@ -5,13 +5,16 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Rekrutin.</title>
+    <title>Login | Rekrutin.</title>
 
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css"/>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
 <body>
 <div class="hero bg-base-200 min-h-screen">
+    @if (session('success'))
+        <x-alert-top></x-alert-top>
+    @endif
     <div class="hero-content flex-col lg:flex-row-reverse max-w-3xl">
         <div class="text-center lg:text-left">
             <h1 class="text-5xl font-bold">Login now!</h1>
@@ -49,7 +52,7 @@
                         <label class="label">Password</label>
                         <input type="password" name="password" class="input" placeholder="Password" value="andi" required/>
 
-                        <div>Don't Have an account yet? <a target="_blank" class="link link-hover text-info">Sign up now</a></div>
+                        <div>Don't Have an account yet? <a href="/signup" class="link link-hover text-info">Sign up now</a></div>
 
                         <button type="submit" class="btn btn-neutral mt-4">Login</button>
                     </fieldset>

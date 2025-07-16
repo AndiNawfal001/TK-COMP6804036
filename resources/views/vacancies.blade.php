@@ -126,6 +126,13 @@
                 document.getElementById('edit_modal_dialog').showModal();
             });
     }
+
+    function updateStatusValue() {
+        var status = document.getElementById('edit_status');
+        var status_f = document.getElementById('edit_status_f');
+        status_f.value = status.checked ? '' : 'f';
+    }
+
     function formatPrice(input) {
         let value = input.value.replace(/[^0-9]/g, '');
         if (value.length === 0) {
@@ -169,7 +176,8 @@
                     </x-forms.fieldset>
 
                     <x-forms.fieldset label="Status Publish" name="status" bag="edit">
-                        <input type="checkbox" id="edit_status" name="status" value="t" checked="checked" class="toggle toggle-sm toggle-primary" />
+                        <input type="hidden" id="edit_status_f" name="status">
+                        <input type="checkbox" id="edit_status" name="status" value="t" checked="checked" class="toggle toggle-sm toggle-primary" onchange="updateStatusValue()"/>
                     </x-forms.fieldset>
                 </div>
 
@@ -225,76 +233,6 @@
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             openEditModal({{ session('edit_id') }});
-        });
-    </script>
-@endif
-
-<script>
-    function openApproveModal(id) {
-        fetch('/vacancies_approve/' + id + '')
-            .then(response => response.json())
-            .then(data => {
-
-                data.app_by && (document.getElementById('app_by').value = data.app_by.name);
-                data.app_date && (document.getElementById('app_date').value = data.app_date);
-
-                let statusRadios = document.getElementsByName('app_status');
-                statusRadios.forEach(radio => {
-                    if (radio.value === data.app_status) {
-                        radio.checked = true;
-                    }
-                });
-                document.getElementById('app_note').value = data.app_note;
-
-                document.getElementById('app_form').action = '/vacancies_update_appr/' + data.id;
-                document.getElementById('app_modal_dialog').showModal();
-            });
-    }
-</script>
-
-<dialog id="app_modal_dialog" class="modal">
-    <div class="modal-box w-5/12 ">
-        <x-header :title="$title">
-            <li>Approve Data</li>
-        </x-header>
-
-        <form method="POST" id="app_form">
-            @csrf
-
-            <x-forms.fieldset label="By" name="app_by" bag="approve">
-                <input type="text" id="app_by" class="input w-full" value="{{ old('app_by', auth()->user()->name) }}" disabled/>
-            </x-forms.fieldset>
-
-            <x-forms.fieldset label="Date" name="app_date" bag="approve">
-                <input type="date" id="app_date" name="app_date" class="input w-full" value="{{ old('app_date', date('Y-m-d')) }}"/>
-            </x-forms.fieldset>
-
-            <fieldset class="fieldset">
-                <legend class="fieldset-legend">Page title</legend>
-                <div class="flex gap-2">
-                    <input type="radio" id="app_status" name="app_status" value="t" class="radio radio-sm radio-accent" /> <span class="text-sm">Approve</span>
-                    <input type="radio" id="app_status" name="app_status" value="p" class="radio radio-sm radio-warning" /> <span class="text-sm">Pending</span>
-                    <input type="radio" id="app_status" name="app_status" value="f" class="radio radio-sm radio-error" /> <span class="text-sm">Reject</span>
-                </div>
-            </fieldset>
-
-            <x-forms.fieldset label="Note" name="app_note" bag="approve">
-                <textarea class="textarea h-24 w-full" id="app_note" name="app_note">{{ old('note') }}</textarea>
-            </x-forms.fieldset>
-
-
-            <input type="submit" class="btn btn-sm btn-primary my-2">
-        </form>
-    </div>
-    <form method="dialog" class="modal-backdrop">
-        <button>Close</button>
-    </form>
-</dialog>
-
-@if (session('app_id'))
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            openEditModal({{ session('app_id') }});
         });
     </script>
 @endif
