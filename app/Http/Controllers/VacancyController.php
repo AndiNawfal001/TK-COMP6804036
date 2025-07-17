@@ -18,11 +18,11 @@ class VacancyController extends Controller
         $positions = Position::all();
         $educations = Education::all();
         $sallary_types = SallaryType::all();
-
         $datas = Vacancy::query()
             ->latest()
             ->paginate(10)
             ->withQueryString();
+//        dd(1);
 
         return view('vacancies', compact('title', 'datas', 'positions', 'educations', 'sallary_types'));
     }

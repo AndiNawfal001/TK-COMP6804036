@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SelectionsController;
 use App\Http\Controllers\SelectVacanciesController;
 use App\Http\Controllers\StaffRequestController;
 use App\Http\Controllers\VacancyController;
@@ -49,4 +50,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('select_vacancies', SelectVacanciesController::class);
     Route::get('select_vacancies_detail/{id}', [SelectVacanciesController::class, 'detail'])->name('select_vacancies_detail');
+
+    Route::get('/selection/{type}', [SelectionsController::class, 'index'])->name('selection.index');
+
 });

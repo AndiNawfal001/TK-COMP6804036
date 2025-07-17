@@ -49,7 +49,7 @@
                         <label class="label">Confirm Password</label>
                         <input type="password" id="password_confirmation" name="password_confirmation" class="input" placeholder="Confirm password" onkeyup="checkPasswordMatch()" required />
                         <p id="password-error" class="text-xs text-red-500 -mt-1 hidden">Passwords do not match.</p>
-                        <p id="password-success" class="text-xs text-green-500 -mt-1 hidden">Passwords matched. 👍</p>
+                        <p id="password-success" class="text-xs text-green-500 -mt-1 hidden">Passwords matched.</p>
 
                         <div class="mt-2">
                             Already have an account?
@@ -77,7 +77,9 @@
                             } else {
                                 errorText.classList.add('hidden');
                                 successText.classList.remove('hidden');
-                                registerButton.disabled = false;
+                                if(){
+                                    registerButton.disabled = false;
+                                }
                             }
                         }
 

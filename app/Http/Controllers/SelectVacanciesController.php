@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Education;
 use App\Models\Position;
 use App\Models\SallaryType;
+use App\Models\Selections;
 use App\Models\Vacancy;
 use Illuminate\Http\Request;
 
@@ -19,6 +20,7 @@ class SelectVacanciesController extends Controller
         $sallary_types = SallaryType::all();
 
         $datas = Vacancy::query()
+            ->where('status', 't')
             ->latest()
             ->paginate(10)
             ->withQueryString();
@@ -34,6 +36,17 @@ class SelectVacanciesController extends Controller
         $data['sallary'] = number_format($data->sallary, 0, '.', ',');
 
         return response()->json($data);
+    }
+
+    public function store(Request $request)
+    {
+        $data = [];
+        $data['vac_id'] = $request->vacancy_id;
+        $data['applicant_id'] = auth()->user()->id;
+        $data['type_test_id'] = 1;
+
+        Selections::create($data);
+
     }
 
 }

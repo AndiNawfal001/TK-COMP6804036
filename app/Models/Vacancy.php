@@ -4,11 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Vacancy extends Model
 {
     public $timestamps = true;
-    protected $with = ['staff_request', 'min_edu', 'sallary_id'];
+    protected $with = ['staff_request'];
     protected $guarded = [
         'id'
     ];
@@ -28,5 +29,9 @@ class Vacancy extends Model
         return $this->belongsTo(SallaryType::class, 'sallary_id', 'id');
     }
 
+    public function selection(): HasMany
+    {
+        return $this->hasMany (Selections::class, 'vac_id', 'id');
+    }
 
 }

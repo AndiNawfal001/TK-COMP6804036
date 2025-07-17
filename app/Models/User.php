@@ -59,4 +59,9 @@ class User extends Authenticatable
     {
         return $this->hasMany (StaffRequest::class, 'app_by', 'id');
     }
+
+    public function selection(): HasMany
+    {
+        return $this->hasMany (Selections::class, 'applicant_id', 'id');
+    }
 }

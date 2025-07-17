@@ -75,7 +75,12 @@
                 </div>
             </a>
         @empty
-            no
+            <div role="alert" class="alert alert-info alert-soft">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-6 w-6 shrink-0 stroke-current">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>No Data available</span>
+            </div>
         @endforelse
     </div>
     {{ $datas->links('vendor.pagination.tailwind') }}
@@ -97,7 +102,6 @@
                 data.sallary_id && (document.getElementById('detail_sallary_id').textContent  = data.sallary_id.name);
                 data.note && (document.getElementById('detail_note').textContent  = data.note);
 
-                document.getElementById('detail_form').action = '/select_vacancies_update/' + data.id;
                 document.getElementById('detail_modal_dialog').showModal();
             });
     }
@@ -106,10 +110,10 @@
 <dialog id="detail_modal_dialog" class="modal">
     <div class="modal-box w-11/12 md:8/12 max-w-3xl">
 
-        <h2 class="text-2xl font-semibold">Vacancy Detail</h2>
+        <h2 class="text-xl font-semibold">Vacancy Detail</h2>
         <div class="divider"></div>
 
-        <div class="space-y-2">
+        <div class="space-y-2 text-sm">
             <div>
                 <span class="font-semibold">Title :</span>
                 <span id="detail_title" class="text-base ml-1">-</span>
@@ -142,12 +146,17 @@
 
         <div class="divider"></div>
 
-        <div class="bg-accent text-accent-content p-4 rounded-lg mb-4">
-            <p class="text-lg font-medium mb-2">You’re about to apply for this vacancy </p>
-            <p class="mt-2 text-sm">Your uploaded CV and other documents will be included in this application.</p>
+        <div role="alert" class="alert alert-success alert-soft">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-6 w-6 shrink-0 stroke-current">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <div>
+                <h3 class="font-bold">You’re about to apply for this vacancy</h3>
+                <div class="text-xs">Your uploaded CV and other documents will be included in this application.</div>
+            </div>
         </div>
 
-        <form method="POST" id="detail_form">
+        <form method="POST" id="detail_form" action="{{ route('select_vacancies.store') }}">
             @csrf
             <input type="hidden" name="vacancy_id" id="apply_vacancy_id">
             <div class="mt-4 flex justify-end gap-2 ">
