@@ -21,7 +21,7 @@ class RegisterController extends Controller
             'name' => 'string|max:255',
             'email' => 'email|unique:users,email',
             'password' => 'string|min:8|confirmed',
-            'phone' => 'nullable|string|max:20'
+            'telephone' => 'nullable|string|max:20'
         ]);
 
         if ($validator->fails()) {

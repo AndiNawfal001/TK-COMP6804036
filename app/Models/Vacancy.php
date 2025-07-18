@@ -34,4 +34,10 @@ class Vacancy extends Model
         return $this->hasMany (Selections::class, 'vac_id', 'id');
     }
 
+    public function countApplicantsByType($type): int
+    {
+        return $this->selection()->where('type_test_id', $type)->count('applicant_id');
+    }
+
+
 }

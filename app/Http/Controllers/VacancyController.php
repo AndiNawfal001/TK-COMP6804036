@@ -22,7 +22,6 @@ class VacancyController extends Controller
             ->latest()
             ->paginate(10)
             ->withQueryString();
-//        dd(1);
 
         return view('vacancies', compact('title', 'datas', 'positions', 'educations', 'sallary_types'));
     }
@@ -86,7 +85,7 @@ class VacancyController extends Controller
         $vacancies = Vacancy::findOrFail($id);
 
         $data = $request->all();
-        $data['app_by'] = auth()->user()->id;
+        $data['app_by'] = $vacancies->app_by ?? auth()->user()->id;
 
         $vacancies->update($data);
 

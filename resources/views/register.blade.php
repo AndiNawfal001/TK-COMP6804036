@@ -41,7 +41,7 @@
                         <input type="email" name="email" class="input" placeholder="Email address" value="{{ old('email') }}" required />
 
                         <label class="label">Phone Number</label>
-                        <input type="text" name="phone" class="input" placeholder="Phone number " value="{{ old('phone') }}" />
+                        <input type="text" name="telephone" class="input" placeholder="Phone number " value="{{ old('telephone') }}" />
 
                         <label class="label">Password</label>
                         <input type="password" name="password" class="input" placeholder="Password" onkeyup="checkPasswordMatch()" required />

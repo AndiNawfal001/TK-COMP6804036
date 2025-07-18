@@ -38,37 +38,7 @@
                         </div>
                         <div class="flex gap-2">
                             <span class="badge badge-xs badge-outline badge-primary">{{ $r->staff_request->position->name }}</span>
-                            <span class="badge badge-xs badge-outline badge-error">0 / {{ $r->staff_request->qty }}</span>
-                        </div>
-                        <p>{{ $r->note }}</p>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="card w-full bg-base-100 card-sm shadow-sm hover:shadow-md">
-                    <div class="card-body">
-                        <div class="flex justify-between">
-                            <h2 class="card-title">{{ $r->title }}</h2>
-                            <span>{{ $r->created_at->diffForHumans() }}</span>
-                        </div>
-                        <div class="flex gap-2">
-                            <span class="badge badge-xs badge-outline badge-primary">{{ $r->staff_request->position->name }}</span>
-                            <span class="badge badge-xs badge-outline badge-error">0 / {{ $r->staff_request->qty }}</span>
-                        </div>
-                        <p>{{ $r->note }}</p>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="card w-full bg-base-100 card-sm shadow-sm hover:shadow-md">
-                    <div class="card-body">
-                        <div class="flex justify-between">
-                            <h2 class="card-title">{{ $r->title }}</h2>
-                            <span>{{ $r->created_at->diffForHumans() }}</span>
-                        </div>
-                        <div class="flex gap-2">
-                            <span class="badge badge-xs badge-outline badge-primary">{{ $r->staff_request->position->name }}</span>
-                            <span class="badge badge-xs badge-outline badge-error">0 / {{ $r->staff_request->qty }}</span>
+                            <span class="badge badge-xs badge-outline badge-error">{{ $r->countApplicantsByType(1) }} / {{ $r->staff_request->qty }}</span>
                         </div>
                         <p>{{ $r->note }}</p>
                     </div>
@@ -146,21 +116,35 @@
 
         <div class="divider"></div>
 
-        <div role="alert" class="alert alert-success alert-soft">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-6 w-6 shrink-0 stroke-current">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            <div>
-                <h3 class="font-bold">You’re about to apply for this vacancy</h3>
-                <div class="text-xs">Your uploaded CV and other documents will be included in this application.</div>
+        @if($status_check == 'active')
+
+            <div role="alert" class="alert alert-warning alert-soft">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-6 w-6 shrink-0 stroke-current">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span>You already have an active selection process. Please complete it or wait until it finishes.</span>
             </div>
-        </div>
+
+        @else
+
+            <div role="alert" class="alert alert-success alert-soft">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-6 w-6 shrink-0 stroke-current">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <div>
+                    <h3 class="font-bold">You’re about to apply for this vacancy</h3>
+                    <div class="text-xs">Your uploaded CV and other documents will be included in this application.</div>
+                </div>
+            </div>
+
+        @endif
+
 
         <form method="POST" id="detail_form" action="{{ route('select_vacancies.store') }}">
             @csrf
             <input type="hidden" name="vacancy_id" id="apply_vacancy_id">
             <div class="mt-4 flex justify-end gap-2 ">
-                <button type="submit" class="btn btn-primary">Confirm & Apply</button>
+                <button type="submit" class="btn btn-primary" {{ ($status_check != 'ready') ? "disabled" : "" }}>Confirm & Apply</button>
             </div>
         </form>
 

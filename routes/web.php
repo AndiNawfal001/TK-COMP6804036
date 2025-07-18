@@ -52,5 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::get('select_vacancies_detail/{id}', [SelectVacanciesController::class, 'detail'])->name('select_vacancies_detail');
 
     Route::get('/selection/{type}', [SelectionsController::class, 'index'])->name('selection.index');
+    Route::get('selection_approve/{type}/{id}', [SelectionsController::class, 'approve'])->name('selection_approve');
+    Route::post('selection_update_appr/{type}/{id}', [SelectionsController::class, 'updateAppr'])->name('selection_update_appr');
 
 });

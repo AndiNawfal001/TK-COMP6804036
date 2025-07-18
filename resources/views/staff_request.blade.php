@@ -66,7 +66,7 @@
                         <th align="center">{{ $datas->firstItem() + $no }}.</th>
                         <td>{{ $r->number }}</td>
                         <td>{{ $r->title }}</td>
-                        <td>{{ date('j F Y', strtotime($r->date )) }}</td>
+                        <td>{{ $r->date ? date('j F Y', strtotime($r->date)) : '-' }}</td>
                         <td>{{ $r->position?->name }}</td>
                         <td align="center">{{ $r->qty }}</td>
                         <td>{{ Str::limit($r->user_request?->name, 20) }}</td>

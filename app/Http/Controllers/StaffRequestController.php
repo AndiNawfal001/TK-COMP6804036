@@ -95,7 +95,7 @@ class StaffRequestController extends Controller
         $staff_request = StaffRequest::findOrFail($id);
 
         $data = $request->all();
-        $data['app_by'] = auth()->user()->id;
+        $data['app_by'] = $staff_request->app_by ?? auth()->user()->id;
 
         $staff_request->update($data);
 

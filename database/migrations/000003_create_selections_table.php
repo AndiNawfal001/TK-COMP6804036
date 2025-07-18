@@ -25,8 +25,13 @@ return new class extends Migration
                 table : 'selection_types',
                 indexName: 'selection_types_id'
             );
-            $table->string('status')->default('p');
-            $table->text('note')->nullable();
+            $table->foreignId('app_by')->nullable()->constrained(
+                table : 'users',
+                indexName: 'app_selection_id'
+            );
+            $table->date('app_date')->nullable();
+            $table->string('app_status')->default('p');
+            $table->text('app_note')->nullable();
             $table->timestamps();
         });
     }

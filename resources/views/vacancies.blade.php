@@ -71,9 +71,9 @@
                         <th align="center">{{ $datas->firstItem() + $no }}.</th>
                         <td>{{ $r->staff_request->number }}</td>
                         <td>{{ $r->title }}</td>
-                        <td>{{ date('j F Y', strtotime($r->date )) }}</td>
+                        <td>{{ $r->date ? date('j F Y', strtotime($r->date)) : '-' }}</td>
                         <td>{{ $r->staff_request->position->name }}</td>
-                        <td align="center">{{ $r->staff_request->qty }}</td>
+                        <td align="center">{{ $r->countApplicantsByType(1) }}</td>
                         <td>
                             <div class="badge badge-sm badge-soft {{ $color }}">{{ $value }}</div>
                         </td>

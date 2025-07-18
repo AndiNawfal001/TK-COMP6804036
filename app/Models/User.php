@@ -55,7 +55,7 @@ class User extends Authenticatable
         return $this->hasMany (StaffRequest::class, 'user_id', 'id');
     }
 
-    public function app_by(): HasMany
+    public function app_staff_request(): HasMany
     {
         return $this->hasMany (StaffRequest::class, 'app_by', 'id');
     }
@@ -63,5 +63,10 @@ class User extends Authenticatable
     public function selection(): HasMany
     {
         return $this->hasMany (Selections::class, 'applicant_id', 'id');
+    }
+
+    public function app_selections(): HasMany
+    {
+        return $this->hasMany (Selections::class, 'app_by', 'id');
     }
 }

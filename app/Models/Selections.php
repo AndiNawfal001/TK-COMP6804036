@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Selections extends Model
 {
@@ -26,6 +25,11 @@ class Selections extends Model
     public function type(): BelongsTo
     {
         return $this->belongsTo(SelectionType::class, 'type_test_id', 'id');
+    }
+
+    public function app_by(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'app_by', 'id');
     }
 
 }

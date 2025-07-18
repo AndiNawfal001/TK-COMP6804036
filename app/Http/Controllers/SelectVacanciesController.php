@@ -19,13 +19,24 @@ class SelectVacanciesController extends Controller
         $educations = Education::all();
         $sallary_types = SallaryType::all();
 
+        $activeSelections = Selections::where('applicant_id', auth()->id())
+            ->where('app_status', '!=', 'f')
+            ->exists();
+
+        if($activeSelections){
+            $status_check = 'active';
+        }else{
+            $status_check = 'ready';
+        }
+
+
         $datas = Vacancy::query()
             ->where('status', 't')
             ->latest()
             ->paginate(10)
             ->withQueryString();
 
-        return view('select_vacancies', compact('title', 'datas', 'positions', 'educations', 'sallary_types'));
+        return view('select_vacancies', compact('title', 'datas', 'positions', 'educations', 'sallary_types', 'status_check'));
     }
 
     public function detail($id)
@@ -46,6 +57,8 @@ class SelectVacanciesController extends Controller
         $data['type_test_id'] = 1;
 
         Selections::create($data);
+
+        return redirect()->route('select_vacancies.index')->with('success', 'Request created.');
 
     }
 
