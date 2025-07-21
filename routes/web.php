@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SelectionsController;
 use App\Http\Controllers\SelectVacanciesController;
@@ -54,5 +55,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/selection/{type}', [SelectionsController::class, 'index'])->name('selection.index');
     Route::get('selection_approve/{type}/{id}', [SelectionsController::class, 'approve'])->name('selection_approve');
     Route::post('selection_update_appr/{type}/{id}', [SelectionsController::class, 'updateAppr'])->name('selection_update_appr');
+
+    Route::resource('profile', ProfileController::class);
 
 });

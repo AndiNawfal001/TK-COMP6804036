@@ -43,6 +43,7 @@ class DatabaseSeeder extends Seeder
             EducationSeeder::class,
             SallaryTypeSeeder::class,
             SelectionTypeSeeder::class,
+            ReligionSeeder::class,
         ]);
 
     }

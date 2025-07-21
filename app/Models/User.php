@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -23,6 +24,7 @@ class User extends Authenticatable
         'group_id',
         'name',
         'email',
+        'telephone',
         'password',
         'remember_token',
     ];
@@ -68,5 +70,10 @@ class User extends Authenticatable
     public function app_selections(): HasMany
     {
         return $this->hasMany (Selections::class, 'app_by', 'id');
+    }
+
+    public function applicants(): HasOne
+    {
+        return $this->hasOne (Applicant::class, 'user_id', 'id');
     }
 }

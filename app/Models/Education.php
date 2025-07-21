@@ -12,4 +12,9 @@ class Education extends Model
     {
         return $this->hasMany (Vacancy::class, 'min_edu');
     }
+
+    public function applicant(): HasMany
+    {
+        return $this->hasMany (Applicant::class, 'last_edu');
+    }
 }

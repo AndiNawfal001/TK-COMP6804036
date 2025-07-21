@@ -77,9 +77,7 @@
                             } else {
                                 errorText.classList.add('hidden');
                                 successText.classList.remove('hidden');
-                                if(){
-                                    registerButton.disabled = false;
-                                }
+                                registerButton.disabled = false;
                             }
                         }
 
