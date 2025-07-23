@@ -57,5 +57,6 @@ Route::middleware('auth')->group(function () {
     Route::post('selection_update_appr/{type}/{id}', [SelectionsController::class, 'updateAppr'])->name('selection_update_appr');
 
     Route::resource('profile', ProfileController::class);
+    Route::delete('destory_file_profile', [ProfileController::class, 'destroyFile'])->name('destory_file_profile');
 
 });

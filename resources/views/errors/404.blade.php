@@ -18,7 +18,8 @@
             <p class="py-6">
                 The page you're looking for doesn't exist or has been moved.
             </p>
-            <button class="btn btn-primary"><a href="{{ route('login') }}">Go Back Login</a></button>
+            <button class="btn btn-primary"><a href="/dashboard">Go Back Home</a></button>
+            <button class="btn btn-ghost"><a href="/logout">Go Back Login</a></button>
         </div>
     </div>
 </div>
