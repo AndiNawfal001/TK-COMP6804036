@@ -76,4 +76,9 @@ class User extends Authenticatable
     {
         return $this->hasOne (Applicant::class, 'user_id', 'id');
     }
+
+    public function appointment(): HasOne
+    {
+        return $this->hasOne (Appointments::class, 'applicant_id', 'id');
+    }
 }

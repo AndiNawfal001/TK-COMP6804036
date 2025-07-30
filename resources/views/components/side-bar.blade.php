@@ -15,8 +15,10 @@
     @endphp
 
     <li>
-        <a href="javascript:void(0);" onclick="toggleSelectionMenu()" class="cursor-pointer">Selections</a>
-        <ul id="selection-menu" class="p-2 {{ $isActive ? '' : 'hidden' }}">
+{{--        <a href="javascript:void(0);" onclick="toggleSelectionMenu()" class="cursor-pointer">Selections</a>--}}
+        <a class="cursor-pointer">Selections</a>
+{{--        <ul id="selection-menu" class="p-2 {{ $isActive ? '' : 'hidden' }}">--}}
+        <ul id="selection-menu" class="p-2">
             <x-nav-link href="/selection/1" :active="request()->is('selection/1')">Document Check</x-nav-link>
             <x-nav-link href="/selection/2" :active="request()->is('selection/2')">Written Test</x-nav-link>
             <x-nav-link href="/selection/3" :active="request()->is('selection/3')">Initial Interview</x-nav-link>
@@ -34,6 +36,10 @@
     </script>
 
     @can('admin')
-        <x-nav-link href="/appointments" :active="request()->is('appointmens')" >Appointments</x-nav-link>
+        <x-nav-link href="/appointments" :active="request()->is('appointments')" >Appointments</x-nav-link>
+    @endcan
+
+    @can('applicant')
+        <x-nav-link href="/profile" :active="request()->is('profile')" >Profile</x-nav-link>
     @endcan
 </ul>

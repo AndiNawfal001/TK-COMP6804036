@@ -71,7 +71,7 @@
                         <th align="center">{{ $datas->firstItem() + $no }}.</th>
                         <td>{{ $r->staff_request->number }}</td>
                         <td>{{ $r->title }}</td>
-                        <td>{{ $r->date ? date('j F Y', strtotime($r->date)) : '-' }}</td>
+                        <td>{{ $r->staff_request->date ? date('j F Y', strtotime($r->staff_request->date)) : '-' }}</td>
                         <td>{{ $r->staff_request->position->name }}</td>
                         <td align="center">{{ $r->countApplicantsByType(1) }}</td>
                         <td>
@@ -144,7 +144,7 @@
 </script>
 
 <dialog id="edit_modal_dialog" class="modal">
-    <div class="modal-box w-8/12 max-w-3xl">
+    <div class="modal-box w-11/12 md:8/12 max-w-3xl">
         <x-header :title="$title">
             <li>Edit Data</li>
         </x-header>
@@ -160,7 +160,7 @@
                     </ul>
                 </div>
             @endif
-            <div class="flex gap-4">
+            <div class="lg:flex gap-4">
 
                 <div class="flex-1">
                     <x-forms.fieldset label="Title" name="title" bag="edit">

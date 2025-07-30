@@ -26,6 +26,7 @@ return new class extends Migration
                 table : 'education',
                 indexName: 'education_id'
             );
+            $table->string('applicant_number')->nullable();
             $table->integer('height')->nullable();
             $table->integer('weight')->nullable();
             $table->text('address')->nullable();

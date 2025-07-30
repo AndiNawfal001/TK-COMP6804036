@@ -14,7 +14,7 @@ class ProfileController extends Controller
     {
 
         if (auth()->user()->group_id != 4) {
-            abort(404);
+            abort(403);
         }
 
         $title = 'Profile';
@@ -35,6 +35,8 @@ class ProfileController extends Controller
                 Storage::disk('public')->delete($request->old_photo);
             }
             $path_photo = $request->file('photo')->store('documents', 'public');
+        }else{
+            $path_photo ="";
         }
 
         if (isset($request->old_cv) && empty($request->file('cv'))) {
@@ -44,6 +46,8 @@ class ProfileController extends Controller
                 Storage::disk('public')->delete($request->old_cv);
             }
             $path_cv = $request->file('cv')->store('documents', 'public');
+        }else{
+            $path_cv ="";
         }
 
         if (isset($request->old_ktp) && empty($request->file('ktp'))) {
@@ -53,13 +57,18 @@ class ProfileController extends Controller
                 Storage::disk('public')->delete($request->old_ktp);
             }
             $path_ktp = $request->file('ktp')->store('documents', 'public');
+        }else{
+            $path_ktp ="";
         }
 
 
 
         Applicant::updateOrCreate(
-            ['user_id' => auth()->id()], // kolom pencarian
+            ['user_id' => auth()->id()],
             [
+                'applicant_number' => Applicant::whereNotNull('applicant_number')->exists()
+                    ? fake()->unique()->regexify('[A-Z]{5}[0-4]{3}')
+                    : fake()->regexify('[A-Z]{5}[0-4]{3}'),
                 'gender' => $request->gender,
                 'religion' => $request->religion,
                 'last_edu' => $request->last_edu,
@@ -77,10 +86,5 @@ class ProfileController extends Controller
 
         return redirect()->route('profile.index')->with('success', 'Request saved.');
 
-    }
-
-    public function destroyFile(Request $request)
-    {
-        dd($request->all());
     }
 }

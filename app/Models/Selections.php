@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Selections extends Model
 {
 
-    protected $with = ['vaqancy', 'applicant', 'type'];
+    protected $with = ['vacancy', 'applicant', 'type', 'approve_by'];
     protected $guarded = [
         'id'
     ];
-    public function vaqancy(): BelongsTo
+    public function vacancy(): BelongsTo
     {
         return $this->belongsTo(Vacancy::class, 'vac_id', 'id');
     }
@@ -27,7 +27,7 @@ class Selections extends Model
         return $this->belongsTo(SelectionType::class, 'type_test_id', 'id');
     }
 
-    public function app_by(): BelongsTo
+    public function approve_by(): BelongsTo
     {
         return $this->belongsTo(User::class, 'app_by', 'id');
     }

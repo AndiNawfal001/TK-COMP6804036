@@ -62,14 +62,20 @@
                 <tr>
                     <th align="center">{{ $datas->firstItem() + $no }}.</th>
                     <td>{{ $r->created_at->diffForHumans() }}</td>
-                    <td>{{ $r->vaqancy->staff_request->number }}</td>
-                    <td>{{ $r->vaqancy->staff_request->position->name }}</td>
+                    <td>{{ $r->vacancy->staff_request->number }}</td>
+                    <td>{{ $r->vacancy->staff_request->position->name }}</td>
                     <td></td>
                     <td>{{ $r->applicant->name }}</td>
                     <td>{{ $r->applicant->telephone }}</td>
                     <td>{{ $r->app_date ? date('j F Y', strtotime($r->app_date)) : '-' }}</td>
                     <td>
-                        <x-button-status href="#appr" onclick="openApproveModal({{ $type }}, {{ $r->id }})">{{ $r->app_status }}</x-button-status>
+                        <x-button-status
+                            href="#appr"
+                            onclick="{{ auth()->user()->group_id == 4 ? '' : 'openApproveModal(' . $type . ', ' . $r->id . ')' }}"
+                        >
+                            {{ $r->app_status }}
+                        </x-button-status>
+
                     </td>
                 </tr>
 
@@ -99,7 +105,7 @@
             .then(response => response.json())
             .then(data => {
 
-                data.app_by && (document.getElementById('app_by').value = data.app_by.name);
+                data.approve_by && (document.getElementById('app_by').value = data.approve_by.name);
                 data.app_date && (document.getElementById('app_date').value = data.app_date);
 
                 let statusRadios = document.getElementsByName('app_status');
@@ -117,7 +123,7 @@
 </script>
 
 <dialog id="app_modal_dialog" class="modal">
-    <div class="modal-box w-5/12 ">
+    <div class="modal-box w-11/12 md:w-5/12 max-w-3xl">
         <x-header :title="$title">
             <li>Approve Data</li>
         </x-header>
@@ -125,8 +131,17 @@
         <form method="POST" id="app_form">
             @csrf
 
+            @if($type == 7)
+                <div role="alert" class="alert alert-warning alert-soft">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-6 w-6 shrink-0 stroke-current">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span>By approving this final selection stage, you acknowledge that the applicant has successfully passed all recruitment steps and you agree to proceed with the employment appointment.</span>
+                </div>
+            @endif
+
             <x-forms.fieldset label="By" name="app_by" bag="approve">
-                <input type="text" id="app_by" class="input input-sm w-full" value="{{ old('app_by', auth()->user()->name) }}" disabled/>
+                <input type="text" id="app_by" name="app_by" class="input input-sm w-full" value="{{ old('app_by', auth()->user()->name) }}" disabled/>
             </x-forms.fieldset>
 
             <x-forms.fieldset label="Date" name="app_date" bag="approve">

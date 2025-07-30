@@ -112,15 +112,15 @@
 @endif
 
 <dialog id="add_staff_request" class="modal">
-    <div class="modal-box w-8/12 max-w-3xl">
-        <x-header :title="$title">
+    <div class="modal-box w-11/12 md:w-8/12 max-w-3xl">
+    <x-header :title="$title">
             <li>Add Data</li>
         </x-header>
 
         <form action="{{ route('staff_request.store') }}" method="POST">
             @csrf
 
-            <div class="flex gap-4">
+            <div class="lg:flex gap-4">
 
                 <div class="flex-1">
                     <x-forms.fieldset label="Title" name="title" bag="insert">
@@ -183,7 +183,7 @@
 </script>
 
 <dialog id="edit_modal_dialog" class="modal">
-    <div class="modal-box w-8/12 max-w-3xl">
+    <div class="modal-box w-11/12 md:w-8/12 max-w-3xl">
         <x-header :title="$title">
             <li>Edit Data</li>
         </x-header>
@@ -191,7 +191,7 @@
         <form method="POST" id="edit_form">
             @csrf
 
-            <div class="flex gap-4">
+            <div class="lg:flex gap-4">
 
                 <div class="flex-1">
                     <x-forms.fieldset label="Title" name="title" bag="edit">
@@ -266,7 +266,7 @@
 </script>
 
 <dialog id="app_modal_dialog" class="modal">
-    <div class="modal-box w-5/12 ">
+    <div class="modal-box w-11/12 lg:w-5/12 max-w-3xl">
         <x-header :title="$title">
             <li>Approve Data</li>
         </x-header>

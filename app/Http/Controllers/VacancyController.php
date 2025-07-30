@@ -72,33 +72,4 @@ class VacancyController extends Controller
         }
     }
 
-    public function approve($id)
-    {
-        $data = Vacancy::findOrFail($id);
-
-        return response()->json($data);
-    }
-
-    public function updateAppr(Request $request, $id)
-    {
-
-        $vacancies = Vacancy::findOrFail($id);
-
-        $data = $request->all();
-        $data['app_by'] = $vacancies->app_by ?? auth()->user()->id;
-
-        $vacancies->update($data);
-
-        if($vacancies){
-            return redirect()->route('vacancies.index')->with('success', 'Request Approve updated.');
-        }
-    }
-
-    public function destroy($id)
-    {
-        $staffRequest = Vacancy::findOrFail($id);
-        $staffRequest->delete();
-
-        return redirect()->route('vacancies.index')->with('success', 'Request deleted.');
-    }
 }

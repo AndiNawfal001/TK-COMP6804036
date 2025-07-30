@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointments;
 use App\Models\Position;
 use App\Models\Selections;
 use App\Models\SelectionType;
@@ -21,6 +22,9 @@ class SelectionsController extends Controller
         $title = SelectionType::where('id', $type)->value('name');
 
         $datas = Selections::where('type_test_id', $type)->paginate(10);
+
+//        dd($datas);
+
         return view("selections", compact('datas', 'title', 'positions', 'type'));
     }
 
@@ -50,7 +54,11 @@ class SelectionsController extends Controller
 
             Selections::create($data);
         }elseif($request->app_status == 't' && $type == 7){
-
+            Appointments::create([
+                'applicant_id' => $selection->applicant_id,
+                'vac_id' => $selection->vac_id,
+                'appointment_date' => now()->addDays(3),
+            ]);
         }
 
         if($selection){

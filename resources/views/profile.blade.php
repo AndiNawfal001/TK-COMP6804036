@@ -10,22 +10,24 @@
         <div class="lg:flex gap-4">
             <div class="flex-1">
                 <x-forms.fieldset label="Full Name" name="name" bag="edit">
-                    <input type="text" id="name" name="name" class="input input-sm w-full" value="{{ old('app_by', auth()->user()->name) }}" readonly/>
+                    <input type="text" id="name" name="name" class="input input-sm w-full" value="{{ old('app_by', auth()->user()->name) }}" disabled/>
                 </x-forms.fieldset>
+
+                @if(isset($data->applicant_number))
+                    <x-forms.fieldset label="Applicant Number" name="applicant_number" bag="edit">
+                        <input type="text" id="applicant_number" name="applicant_number" class="input input-sm w-full" value="{{ old('applicant_number', $data->applicant_number) }}" disabled/>
+                    </x-forms.fieldset>
+                @endif
 
                 <x-forms.fieldset label="Telephone" name="telephone" bag="edit">
-                    <input type="text" id="telephone" name="telephone" class="input input-sm w-full" value="{{ old('app_by', auth()->user()->telephone) }}" readonly/>
-                </x-forms.fieldset>
-
-                <x-forms.fieldset label="Email" name="email" bag="edit">
-                    <input type="text" id="email" name="email" class="input input-sm w-full" value="{{ old('app_by', auth()->user()->email) }}" readonly/>
+                    <input type="text" id="telephone" name="telephone" class="input input-sm w-full" value="{{ old('app_by', auth()->user()->telephone) }}" disabled/>
                 </x-forms.fieldset>
 
                 <fieldset class="fieldset">
                     <legend class="fieldset-legend">Gender</legend>
                     <div class="flex gap-2">
-                        <input type="radio" id="gender" name="gender" value="m" class="radio radio-sm radio-sm radio-info" {{ old('gender', $data->gender ?? '') == 'm' ? 'checked' : '' }}/> <span class="text-sm">Male</span>
-                        <input type="radio" id="gender" name="gender" value="f" class="radio radio-sm radio-sm radio-secondary" {{ old('gender', $data->gender ?? '') == 'f' ? 'checked' : '' }}/> <span class="text-sm">Female</span>
+                        <input type="radio" id="gender" name="gender" value="m" class="radio radio-sm radio-sm radio-info" {{ old('gender', $data->gender ?? '') == 'm' ? 'checked' : '' }} required/> <span class="text-sm">Male</span>
+                        <input type="radio" id="gender" name="gender" value="f" class="radio radio-sm radio-sm radio-secondary" {{ old('gender', $data->gender ?? '') == 'f' ? 'checked' : '' }} required/> <span class="text-sm">Female</span>
                     </div>
                 </fieldset>
 
@@ -62,6 +64,10 @@
             </div>
             <div class="flex-1">
 
+                <x-forms.fieldset label="Email" name="email" bag="edit">
+                    <input type="text" id="email" name="email" class="input input-sm w-full" value="{{ old('app_by', auth()->user()->email) }}" disabled/>
+                </x-forms.fieldset>
+
                 <x-forms.fieldset label="Height & Weight" name="height_weith" bag="edit">
                     <div class="flex items-center gap-2">
                         <input type="number" id="height" name="height" class="input input-sm w-[100px]" value="{{ old('height', $data->height ?? '') }}" required placeholder="Height (cm)"/>
@@ -73,7 +79,7 @@
                 <x-forms.fieldset label="Upload Photo" name="photo" bag="edit">
                     <div class="flex gap-2">
 
-                        <input type="file" id="photo" name="photo" class="file-input file-input-sm" />
+                        <input type="file" id="photo" name="photo" class="file-input file-input-sm"/>
 
                         @if(optional($data)->photo)
 
@@ -88,7 +94,7 @@
                 <x-forms.fieldset label="Upload CV" name="cv" bag="edit">
                     <div class="flex gap-2">
 
-                        <input type="file" id="cv" name="cv" class="file-input file-input-sm" />
+                        <input type="file" id="cv" name="cv" class="file-input file-input-sm"/>
 
                         @if(optional($data)->cv)
 
@@ -103,7 +109,7 @@
                 <x-forms.fieldset label="Upload KTP (Indonesian ID Card)" name="ktp" bag="edit">
                     <div class="flex gap-2">
 
-                        <input type="file" id="ktp" name="ktp" class="file-input file-input-sm" />
+                        <input type="file" id="ktp" name="ktp" class="file-input file-input-sm"/>
 
                         @if(optional($data)->ktp)
 
@@ -119,11 +125,11 @@
                     <textarea class="textarea h-24 w-full" id="address" name="address">{{ old('address') }}</textarea>
                 </x-forms.fieldset>
 
+                <input type="submit" class="btn btn-sm btn-primary my-2 float-right" value="Save Changes">
             </div>
         </div>
 
 
-        <input type="submit" class="btn btn-sm btn-primary my-2" value="Save Changes">
     </form>
 
 </x-layout>

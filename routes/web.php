@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SelectionsController;
@@ -27,9 +29,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/logout', [AuthController::class, 'logout']);
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    });
+    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 
     Route::get('/applicant', function () {
         return view('applicant', ['title' => 'Applicants', 'datas' => Applicant::all()]);
@@ -45,9 +45,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('vacancies', VacancyController::class);
     Route::get('vacancies_edit/{id}', [VacancyController::class, 'edit'])->name('vacancies_edit');
     Route::post('vacancies_update/{id}', [VacancyController::class, 'update'])->name('vacancies_update');
-    Route::get('vacancies_approve/{id}', [VacancyController::class, 'approve'])->name('vacancies_approve');
-    Route::post('vacancies_update_appr/{id}', [VacancyController::class, 'updateAppr'])->name('vacancies_update_appr');
-    Route::delete('vacancies_destroy/{id}', [VacancyController::class, 'destroy'])->name('vacancies_destroy');
 
     Route::resource('select_vacancies', SelectVacanciesController::class);
     Route::get('select_vacancies_detail/{id}', [SelectVacanciesController::class, 'detail'])->name('select_vacancies_detail');
@@ -58,5 +55,9 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('profile', ProfileController::class);
     Route::delete('destory_file_profile', [ProfileController::class, 'destroyFile'])->name('destory_file_profile');
+
+    Route::resource('appointments', AppointmentController::class);
+    Route::get('appointments_edit/{id}', [AppointmentController::class, 'edit'])->name('appointments_edit');
+    Route::post('appointments_update/{id}', [AppointmentController::class, 'update'])->name('appointments_update');
 
 });
