@@ -2,6 +2,7 @@
 <ul class="menu bg-base-100 text-base-content min-h-full w-80 p-4 ">
     <x-nav-link href="/dashboard" :active="request()->is('dashboard')" >Dashboard</x-nav-link>
     @can('admin')
+        <x-nav-link href="/applicants" :active="request()->is('applicants')" >Applicants</x-nav-link>
         <x-nav-link href="/staff_request" :active="request()->is('staff_request')" >Staff Requests</x-nav-link>
         <x-nav-link href="/vacancies" :active="request()->is('vacancies')" >Vacancies</x-nav-link>
     @endcan

@@ -24,18 +24,10 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('andi'),
             'remember_token' => Str::random(10),
         ]);
-
-        User::create([
-            'name' => 'Gerengger Arifal',
-            'email' => 'arifal@gmail.com',
-            'group_id' => 4,
-            'email_verified_at' => now(),
-            'password' => Hash::make('123'),
-            'remember_token' => Str::random(10),
-        ]);
+        $users = User::factory(10)->create(['group_id' => 3]);
 
         StaffRequest::factory(50)->recycle([
-            User::factory(10)->create(),
+            $users,
             Position::factory(12)->create()
         ])->create();
 

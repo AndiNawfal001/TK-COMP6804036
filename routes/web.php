@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApplicantsController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
@@ -59,5 +60,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('appointments', AppointmentController::class);
     Route::get('appointments_edit/{id}', [AppointmentController::class, 'edit'])->name('appointments_edit');
     Route::post('appointments_update/{id}', [AppointmentController::class, 'update'])->name('appointments_update');
+
+    Route::resource('applicants', ApplicantsController::class);
+    Route::get('applicants_detail/{id}', [ApplicantsController::class, 'detail'])->name('applicants_detail');
 
 });

@@ -116,6 +116,20 @@
                 });
                 document.getElementById('app_note').value = data.app_note;
 
+                const fileDisplay = document.getElementById('file_display');
+                fileDisplay.innerHTML = '';
+                if (data.file) {
+                    fileDisplay.innerHTML = `
+                            <input type="hidden" id="old_file" name="old_file" value="${data.file}" />
+
+                            <a href="/storage/${data.file}" target="_blank" class="btn btn-soft btn-sm btn-square btn-info">
+                                <i class="fi fi-sr-file"></i>
+                            </a>
+                        `;
+                } else {
+                    fileDisplay.innerHTML = `<input type="file" id="file" name="file" class="file-input file-input-sm"/>`;
+                }
+
                 document.getElementById('app_form').action = '/selection_update_appr/' + type + '/' + data.id;
                 document.getElementById('app_modal_dialog').showModal();
             });
@@ -128,7 +142,7 @@
             <li>Approve Data</li>
         </x-header>
 
-        <form method="POST" id="app_form">
+        <form method="POST" id="app_form" enctype="multipart/form-data">
             @csrf
 
             @if($type == 7)
@@ -149,13 +163,20 @@
             </x-forms.fieldset>
 
             <fieldset class="fieldset">
-                <legend class="fieldset-legend">Page title</legend>
+                <legend class="fieldset-legend">Approval</legend>
                 <div class="flex gap-2">
                     <input type="radio" id="app_status" name="app_status" value="t" class="radio radio-sm radio-sm radio-accent" /> <span class="text-sm">Approve</span>
                     <input type="radio" id="app_status" name="app_status" value="p" class="radio radio-sm radio-sm radio-warning" /> <span class="text-sm">Pending</span>
                     <input type="radio" id="app_status" name="app_status" value="f" class="radio radio-sm radio-sm radio-error" /> <span class="text-sm">Reject</span>
                 </div>
             </fieldset>
+
+
+            <x-forms.fieldset label="Upload File" name="file" bag="edit">
+                <div class="flex gap-2">
+                    <div id="file_display"></div>
+                </div>
+            </x-forms.fieldset>
 
             <x-forms.fieldset label="Note" name="app_note" bag="approve">
                 <textarea class="textarea h-24 w-full" id="app_note" name="app_note">{{ old('note') }}</textarea>

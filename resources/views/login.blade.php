@@ -19,8 +19,7 @@
         <div class="text-center lg:text-left">
             <h1 class="text-5xl font-bold">Login now!</h1>
             <p class="py-6">
-                Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-                quasi. In deleniti eaque aut repudiandae et a id nisi.
+                Welcome back! Please log in to your account to manage applications, view your profile, and track your recruitment progress.
             </p>
         </div>
         <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">

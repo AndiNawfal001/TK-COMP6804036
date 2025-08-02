@@ -6,4 +6,5 @@
 - rename db
 - php artisan migrate
 - php artisan migrate:fresh --seed
+- php artisan storage:link
 - php artisan serve

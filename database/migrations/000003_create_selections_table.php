@@ -29,6 +29,7 @@ return new class extends Migration
                 table : 'users',
                 indexName: 'app_selection_id'
             );
+            $table->string('file')->nullable();
             $table->date('app_date')->nullable();
             $table->string('app_status')->default('p');
             $table->text('app_note')->nullable();

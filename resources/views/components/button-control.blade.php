@@ -33,4 +33,8 @@
         }
 
     </script>
+@elseif($attributes['type'] == 3)
+    <button class="btn btn-xs btn-circle btn-outline btn-info"  onclick="{{ $onclick }}">
+        <a href="{{ $href }}"><i class="fi fi-sr-file"></i></a>
+    </button>
 @endif
